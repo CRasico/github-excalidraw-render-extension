@@ -3,8 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run build.js",
-    "build:manifest": "bun run build.js | cp ./manifest.json ./dist/"
+    "build:manifest": "bun run build.js | cp ./assets/* ./dist/"
   },
   "devDependencies": {
     "bun-types": "latest",
@@ -13,5 +12,5 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": { "@excalidraw/excalidraw": "^0.15.3", "react": "^18.2.0", "react-dom": "^18.2.0" }
 }
