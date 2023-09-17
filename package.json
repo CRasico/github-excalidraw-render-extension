@@ -2,10 +2,16 @@
   "name": "github-excalidraw-render-extension",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "build": "bun run build.js",
+    "build:manifest": "bun run build.js | cp ./manifest.json ./dist/"
+  },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "@types/chrome": "^0.0.246"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "dependencies": {}
 }
