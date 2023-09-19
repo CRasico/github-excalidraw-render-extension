@@ -7,6 +7,12 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://*.github.com/*"],
+      "js": ["github-content-script.js"]
+    }
+  ],
   "action": {
     "default_title": "Click Me"
   }

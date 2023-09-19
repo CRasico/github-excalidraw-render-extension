@@ -9,10 +9,22 @@ chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
   if (url == undefined || !url.includes(".excalidraw")) {
     return;
   }
-  console.log("Executing script on possible excalidraw file");
 
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id ? tab.id : -1 },
-    files: ["content-script.js"],
-  });
+  console.log("Attempting to capture Excalidraw file");
+  chrome.scripting
+    .executeScript({
+      target: { tabId: tab.id ? tab.id : -1 },
+      files: ["github-content-script.js"],
+    })
+    .then((onfulfilled) => {
+      if (onfulfilled.length == 0) {
+        console.log(
+          "No file found, please try another folder in the repository"
+        );
+        return;
+      }
+
+      var result = onfulfilled[0].result;
+      console.log("Located Excalidraw File", result);
+    });
 });
