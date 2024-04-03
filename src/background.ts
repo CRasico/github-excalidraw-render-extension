@@ -4,7 +4,7 @@ var isConnected = false;
 var connection: any; // Not sure what type this would be
 
 chrome.runtime.onConnect.addListener(function (devToolsConnection) {
-  console.log("Connected to devtools", devToolsConnection);
+  console.info("Connected to devtools", devToolsConnection);
   connection = devToolsConnection;
   isConnected = true;
 });
@@ -15,12 +15,12 @@ chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
     return;
   }
   const url = tab.url;
-  console.log("Validating tab url", url);
+  console.info("Validating tab url", url);
   if (url == undefined || !url.includes(".excalidraw")) {
     return;
   }
 
-  console.log("Attempting to capture Excalidraw file");
+  console.info("Attempting to capture Excalidraw file");
   chrome.scripting
     .executeScript({
       target: { tabId: tab.id ? tab.id : -1 },
@@ -28,7 +28,7 @@ chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
     })
     .then((onfulfilled) => {
       if (onfulfilled.length == 0) {
-        console.log(
+        console.warn(
           "No file found, please try another folder in the repository",
         );
         return;
@@ -36,7 +36,7 @@ chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
 
       const result = onfulfilled[0].result;
       if (isConnected && result) {
-        console.log("Sending Content to DevTools");
+        console.info("Sending Content to the DevTools Handler");
         connection.postMessage({
           type: "ExcalidrawContent",
           content: result,

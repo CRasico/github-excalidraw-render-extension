@@ -16,7 +16,6 @@ backgroundPageConnection.onMessage.addListener((message: any) => {
     console.log("Unhandled Message");
     return;
   }
-  console.log("Setting content in local storage");
   localStorage.setItem(
     "github-excalidraw-content",
     JSON.stringify(message.content),
