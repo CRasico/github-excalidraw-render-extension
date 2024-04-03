@@ -15,5 +15,6 @@
   ],
   "action": {
     "default_title": "Click Me"
-  }
+  },
+  "devtools_page": "devtools.html"
 }

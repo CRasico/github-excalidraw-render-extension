@@ -1,11 +1,21 @@
 /// <reference lib="dom" />
 
+var isConnected = false;
+var connection: any; // Not sure what type this would be
+
+chrome.runtime.onConnect.addListener(function (devToolsConnection) {
+  console.log("Connected to devtools", devToolsConnection);
+  connection = devToolsConnection;
+  isConnected = true;
+});
+
 chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
   if (tab == undefined) {
     console.warn("Could not find an active tab");
     return;
   }
-  var url = tab.url;
+  const url = tab.url;
+  console.log("Validating tab url", url);
   if (url == undefined || !url.includes(".excalidraw")) {
     return;
   }
@@ -19,12 +29,18 @@ chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
     .then((onfulfilled) => {
       if (onfulfilled.length == 0) {
         console.log(
-          "No file found, please try another folder in the repository"
+          "No file found, please try another folder in the repository",
         );
         return;
       }
 
-      var result = onfulfilled[0].result;
-      console.log("Located Excalidraw File", result);
+      const result = onfulfilled[0].result;
+      if (isConnected && result) {
+        console.log("Sending Content to DevTools");
+        connection.postMessage({
+          type: "ExcalidrawContent",
+          content: result,
+        });
+      }
     });
 });
