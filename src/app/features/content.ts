@@ -3,21 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const contentSlice = createSlice({
   name: "content",
   initialState: {
-    value: JSON.parse(localStorage.getItem("github-excalidraw-content") ?? ""),
+    value: JSON.parse(
+      localStorage.getItem("github-excalidraw-content") ?? "{}",
+    ),
   },
   reducers: {
-    setContent: (state, value) => {
-      state.value = value.payload;
-    },
     reloadContent: (state) => {
-      state.value = JSON.parse(
-        localStorage.getItem("github-excalidraw-content") ?? "",
-      );
+      const content = localStorage.getItem("github-excalidraw-content") ?? "{}";
+      state.value = JSON.parse(content);
+    },
+    removeContent: (state) => {
+      state.value = {};
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setContent, reloadContent } = contentSlice.actions;
+export const { reloadContent, removeContent } = contentSlice.actions;
 
 export default contentSlice.reducer;
