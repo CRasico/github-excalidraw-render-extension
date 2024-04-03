@@ -8,18 +8,23 @@ export function App() {
     (state: any) => state.content.value,
     shallowEqual,
   );
-  const handleReloadClick = () => store.dispatch(reloadContent());
-  const handleRemoveClick = () => store.dispatch(removeContent());
+
+  onstorage = () => {
+    store.dispatch(removeContent());
+    setTimeout(() => {
+      store.dispatch(reloadContent());
+    }, 500);
+  };
 
   return (
     <>
-      <button onClick={handleReloadClick}>Reload</button>
-      <button onClick={handleRemoveClick}>Remove</button>
       <h1 style={{ textAlign: "center" }}>Github Excalidraw Viewer</h1>
       {content.type === "excalidraw" ? (
-        <ExcalidrawWrapper content={content} />
+        <ExcalidrawWrapper key={content} content={content} />
       ) : (
-        <h2>Nothing Stored</h2>
+        <div style={{ textAlign: "center" }}>
+          <p>Nothing store please re-extract before reloading</p>
+        </div>
       )}
     </>
   );
