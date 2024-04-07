@@ -1,7 +1,7 @@
 {
   "name": "Github Excalidraw Renderer",
   "description": "Convert .excalidraw files to .svg and replace content inline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 3,
   "permissions": ["activeTab", "scripting"],
   "background": {
@@ -9,7 +9,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.github.com/*", "https://git.*.com/*"],
+      "matches": ["http://*/*.excalidraw"],
       "js": ["github-content-script.js"]
     }
   ],
