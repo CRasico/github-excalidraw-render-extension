@@ -8,6 +8,10 @@ A lot of developers may use excalidraw for quick file updates when attempting to
 
 In order to remove this experience the `github-excalidraw-render-extension` will extract the `.excalidraw` file. Export that content display it for use inside of the developer tools for the user to see.
 
+## Privacy Policy
+
+The `github-excalidraw-render-extension` collects `.excalidraw` payloads off of sites that the user grants the extension access to, that said the extension does not utilize any form of remote code to transfer these files anywhere. The payloads that are collected are entirely stored on the user's local storage within their web browser and only utilize for display purposes within the browsers developer tools.
+
 ## Contributing
 
 ### Prerequisites
